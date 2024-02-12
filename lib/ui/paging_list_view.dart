@@ -259,6 +259,19 @@ class PagingListViewState<PageKeyType, ItemType>
     }, orElse: () => null);
   }
 
+
+  void clearItems() {
+    _pagingState.maybeMap((value) {
+      var items = [...value.items];
+      items.clear();
+      dataSource.currentKey = null;
+      emit(PagingStateData(items, value.status, false));
+      loadPage();
+    }, orElse: () => null);
+  }
+
+
+
   void requestNextPage({bool hasRequestNextPage = true}) {
     _pagingState.maybeMap(
         (value) => emit(PagingState<PageKeyType, ItemType>(
@@ -270,6 +283,7 @@ class PagingListViewState<PageKeyType, ItemType>
   void initState() {
     super.initState();
     dataSource = widget.pageDataSource;
+    dataSource.reLoadFirstPage = clearItems;
     loadPage();
   }
 

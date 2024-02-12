@@ -11,6 +11,8 @@ abstract class DataSource<PageKeyType, ItemType> {
   Future<Tuple2<List<ItemType>, PageKeyType>> loadPageAfter(
       PageKeyType params, int pageSize);
 
+  Function() ? reLoadFirstPage;
+
   /// Request load page for Data Source
   Future<List<ItemType>> loadPage({bool isRefresh = false}) async {
     if (currentKey == null || isRefresh) {
@@ -21,14 +23,13 @@ abstract class DataSource<PageKeyType, ItemType> {
       final results = await _cancelableOperation!.valueOrCancellation();
       isEndList = ((results?.item1.length??0) < pageSize);
       currentKey = results?.item2;
-      return results?.item1??[];
+      return results?.item1 ?? [];
     } else {
       _cancelableOperation =  CancelableOperation.fromFuture(loadPageAfter(currentKey!, pageSize));
       final results = await _cancelableOperation!.valueOrCancellation();
-      // final results = await loadPageAfter(currentKey as PageKeyType, pageSize);
       currentKey = results?.item2;
-      isEndList = ((results?.item1.length??0) < pageSize);
-      return results?.item1??[];
+      isEndList = ((results?.item1.length ?? 0) < pageSize);
+      return results?.item1 ?? [];
     }
   }
 

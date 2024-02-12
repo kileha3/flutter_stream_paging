@@ -33,73 +33,84 @@ class ListViewDemoPageState extends State<ListViewDemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PagingListView<int, Note>.separated(
-      key: key,
-      reverse: true,
-      builderDelegate: PagedChildBuilderDelegate<Note>(
-        itemBuilder: (context, data, child, onUpdate, onDelete, dataList) {
-          return Column(
-            children: [
-              NoteWidget(
-                data,
-                onChanged: () {
-                  var newData =
+    return Stack(
+      children: [
+        PagingListView<int, Note>.separated(
+          key: key,
+          reverse: true,
+          builderDelegate: PagedChildBuilderDelegate<Note>(
+            itemBuilder: (context, data, child, onUpdate, onDelete, dataList) {
+              return Column(
+                children: [
+                  NoteWidget(
+                    data,
+                    onChanged: () {
+                      var newData =
                       Note(data.id, data.title, 'new content ${data.id}');
-                  onUpdate(newData);
-                },
-                onDeleted: () {
-                  onDelete();
-                },
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isExtend = !isExtend;
-                    });
-                  },
-                  child: const Text('extend')),
-              if (isExtend)
-                const Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: ListViewDemoPage(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    buildFirstPage: false,
+                      onUpdate(newData);
+                    },
+                    onDeleted: () {
+                      onDelete();
+                    },
                   ),
-                )
-            ],
-          );
-        },
-      ),
-      pageDataSource: dataSource,
-      shrinkWrap: widget.shrinkWrap,
-      physics: widget.physics,
-      separatorBuilder: (_, index, item, items) {
-        return const SizedBox(
-          height: 20,
-        );
-      },
-      errorBuilder: (_, err) => const SizedBox(),
-      // newPageProgressIndicatorBuilder: (_, onPressed) {
-      //   return ElevatedButton(
-      //       onPressed: onPressed, child: const Text('loadmore'));
-      // },
-      invisibleItemsThreshold: 3,
-      addItemBuilder: widget.buildFirstPage ? (context, onAddItem) {
-        return Row(
-          children: [
-            Expanded(child: TextFormField()),
-            ElevatedButton(
-                onPressed: () {
-                  var newData = Note(DateTime.now().hashCode, 'This add title',
-                      'This add content');
-                  onAddItem(newData);
-                },
-                child: const Text('add')),
-          ],
-        );
-      } : null,
-      // padding: EdgeInsets.only(top: 30),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          isExtend = !isExtend;
+                        });
+                      },
+                      child: const Text('extend')),
+                  if (isExtend)
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: ListViewDemoPage(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        buildFirstPage: false,
+                      ),
+                    )
+                ],
+              );
+            },
+          ),
+          pageDataSource: dataSource,
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
+          separatorBuilder: (_, index, item, items) {
+            return const SizedBox(
+              height: 20,
+            );
+          },
+          errorBuilder: (_, err) => const SizedBox(),
+          // newPageProgressIndicatorBuilder: (_, onPressed) {
+          //   return ElevatedButton(
+          //       onPressed: onPressed, child: const Text('loadmore'));
+          // },
+          invisibleItemsThreshold: 3,
+          addItemBuilder: widget.buildFirstPage ? (context, onAddItem) {
+            return Row(
+              children: [
+                Expanded(child: TextFormField()),
+                ElevatedButton(
+                    onPressed: () {
+                      var newData = Note(DateTime.now().hashCode, 'This add title',
+                          'This add content');
+                      onAddItem(newData);
+                    },
+                    child: const Text('add')),
+              ],
+            );
+          } : null,
+          // padding: EdgeInsets.only(top: 30),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => dataSource.reLoadFirstPage!(),
+          ),
+        )
+      ],
     );
   }
 }

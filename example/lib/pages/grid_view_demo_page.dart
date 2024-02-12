@@ -23,18 +23,29 @@ class GridViewDemoPageState extends State<GridViewDemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PagingGridView<int, Note>(
-        builderDelegate: PagedChildBuilderDelegate<Note>(
-          itemBuilder: (context, data, child, onUpdate, onDelete, dataList) {
-            return NoteWidget(data);
-          },
-        ),
-        pageDataSource: dataSource,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 100 / 150,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-        ));
+    return Stack(
+      children: [
+        PagingGridView<int, Note>(
+            builderDelegate: PagedChildBuilderDelegate<Note>(
+              itemBuilder: (context, data, child, onUpdate, onDelete, dataList) {
+                return NoteWidget(data);
+              },
+            ),
+            pageDataSource: dataSource,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 100 / 150,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+            )),
+        Align(
+          alignment: Alignment.topRight,
+          child: IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => dataSource.reLoadFirstPage!(),
+          ),
+        )
+      ],
+    );
   }
 }

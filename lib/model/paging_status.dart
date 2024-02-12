@@ -3,4 +3,5 @@ enum PagingStatus {
   completed,
   noItemsFound,
   ongoing,
+  clear
 }
