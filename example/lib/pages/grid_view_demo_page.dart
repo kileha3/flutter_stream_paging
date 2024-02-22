@@ -42,7 +42,7 @@ class GridViewDemoPageState extends State<GridViewDemoPage> {
           alignment: Alignment.topRight,
           child: IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => dataSource.reLoadFirstPage!(),
+            onPressed: () => dataSource.reLoadFirstPage(),
           ),
         )
       ],

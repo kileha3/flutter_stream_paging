@@ -11,7 +11,7 @@ abstract class DataSource<PageKeyType, ItemType> {
   Future<Tuple2<List<ItemType>, PageKeyType>> loadPageAfter(
       PageKeyType params, int pageSize);
 
-  Function() ? reLoadFirstPage;
+  late Function() reLoadFirstPage;
 
   /// Request load page for Data Source
   Future<List<ItemType>> loadPage({bool isRefresh = false}) async {
