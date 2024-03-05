@@ -18,10 +18,11 @@ class PagingGroupedView<PageKeyType, ItemType>
     this.newPageCompletedIndicatorBuilder,
     this.newPageProgressIndicatorBuilder,
     this.addItemBuilder,
-    this.order,
+    this.orderAsc = true,
     this.useStickyGroupSeparators = true,
     this.groupSeparatorBuilder,
     this.floatingHeader = true,
+    this.groupHeaderBuilder,
     required super.builderDelegate,
     required super.pageDataSource,
     required this.itemComparator,
@@ -50,11 +51,12 @@ class PagingGroupedView<PageKeyType, ItemType>
   final WidgetBuilder? newPageProgressIndicatorBuilder;
   final int Function(ItemType next,ItemType previous) itemComparator;
   final Widget Function(String header) ? groupSeparatorBuilder;
+  final Widget Function(ItemType item) ? groupHeaderBuilder;
   final String Function(ItemType item) groupBy;
   final AddItemWidgetBuilder<ItemType>? addItemBuilder;
   final bool useStickyGroupSeparators;
   final bool floatingHeader;
-  final GroupedListOrder ? order;
+  final bool orderAsc;
 
   @override
   State<PagingGroupedView<PageKeyType, ItemType>> createState() =>
@@ -186,9 +188,10 @@ class _PagingGroupedViewState<PageKeyType, ItemType>
                 itemCount: items.length,
               ),
               itemComparator: widget.itemComparator, // optional
+              groupHeaderBuilder: widget.groupHeaderBuilder,
               useStickyGroupSeparators: widget.useStickyGroupSeparators, // optional
               floatingHeader: widget.floatingHeader, // optional
-              order: widget.order ?? GroupedListOrder.ASC, // optional
+              order: widget.orderAsc ? GroupedListOrder.ASC : GroupedListOrder.DESC, // optional
             ),
           )
         ],
