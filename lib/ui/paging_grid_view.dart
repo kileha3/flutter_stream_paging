@@ -114,8 +114,6 @@ class _PagingGridViewState<PageKeyType, ItemType>
   late DataSource<PageKeyType, ItemType> dataSource;
 
   Future loadPage({PageKeyType? nextPageKey, bool isRefresh = false}) async {
-    print('loadPage:grid');
-
     var items =
         _pagingState.maybeMap((value) => value.items, orElse: () => null);
     await dataSource.loadPage(isRefresh: isRefresh).then((value) {

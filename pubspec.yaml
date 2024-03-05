@@ -19,6 +19,7 @@ dependencies:
   tuple: ^2.0.0
   async: ^2.5.0
   sliver_tools: ^0.2.8
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   flutter_test:

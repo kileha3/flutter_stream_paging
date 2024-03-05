@@ -46,7 +46,7 @@ class ListViewDemoPageState extends State<ListViewDemoPage> {
                     data,
                     onChanged: () {
                       var newData =
-                      Note(data.id, data.title, 'new content ${data.id}');
+                      Note(data.id, data.title, 'new content ${data.id}', "hey");
                       onUpdate(newData);
                     },
                     onDeleted: () {
@@ -94,7 +94,7 @@ class ListViewDemoPageState extends State<ListViewDemoPage> {
                 ElevatedButton(
                     onPressed: () {
                       var newData = Note(DateTime.now().hashCode, 'This add title',
-                          'This add content');
+                          'This add content', "Done");
                       onAddItem(newData);
                     },
                     child: const Text('add')),

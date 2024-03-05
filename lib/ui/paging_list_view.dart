@@ -346,7 +346,6 @@ class PagingListViewState<PageKeyType, ItemType>
         // Schedules the request for the end of this frame.
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           requestNextPage();
-          print('requestNextPage:');
           await loadPage();
           // _pagingController.notifyPageRequestListeners(_nextKey!);
         });

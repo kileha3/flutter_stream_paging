@@ -18,10 +18,6 @@ class ListViewDataSource extends DataSource<int, Note> {
   @override
   Future<Tuple2<List<Note>, int>> loadPageAfter(
       int params, int pageSize) async {
-    if (params == 4) {
-      return Tuple2([], params + 1);
-    } else {
-      return Tuple2(await noteRepository.getNotes(params), params + 1);
-    }
+    return Tuple2(await noteRepository.getNotes(params), params + 1);
   }
 }
