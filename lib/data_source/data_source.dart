@@ -17,7 +17,7 @@ abstract class DataSource<PageKeyType, ItemType> {
 
   Function(ItemType, int index) ? updateItemOnList;
 
-  late List<ItemType> items;
+  List<ItemType> items = [];
 
 
 
