@@ -212,6 +212,7 @@ class _PagingGroupedViewState<PageKeyType, ItemType>
       required int index,
       required List<ItemType> itemList,
       required int itemCount}) {
+    dataSource.items = itemList;
     var hasRequestedNextPage = _pagingState
         .maybeMap((value) => value.hasRequestNextPage, orElse: () => false);
     if (!hasRequestedNextPage) {
