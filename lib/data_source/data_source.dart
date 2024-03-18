@@ -15,6 +15,8 @@ abstract class DataSource<PageKeyType, ItemType> {
 
   Function(ItemType) ? addItemOnList;
 
+  Function(ItemType, int index) ? updateItemOnList;
+
   /// Request load page for Data Source
   Future<List<ItemType>> loadPage({bool isRefresh = false}) async {
     if (currentKey == null || isRefresh) {

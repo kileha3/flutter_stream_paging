@@ -167,6 +167,7 @@ class _PagingGroupedViewState<PageKeyType, ItemType>
     dataSource = widget.pageDataSource;
     dataSource.reLoadFirstPage = clearItems;
     dataSource.addItemOnList = addItem;
+    dataSource.updateItemOnList = copyWith;
     loadPage();
   }
 
