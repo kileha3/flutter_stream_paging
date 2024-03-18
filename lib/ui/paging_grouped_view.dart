@@ -168,6 +168,7 @@ class _PagingGroupedViewState<PageKeyType, ItemType>
     dataSource.reLoadFirstPage = clearItems;
     dataSource.addItemOnList = addItem;
     dataSource.updateItemOnList = copyWith;
+    dataSource.deleteItemFromList = deleteItem;
     loadPage();
   }
 

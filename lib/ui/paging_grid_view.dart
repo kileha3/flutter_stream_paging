@@ -206,6 +206,7 @@ class _PagingGridViewState<PageKeyType, ItemType>
     dataSource.reLoadFirstPage = clearItems;
     dataSource.addItemOnList = addItem;
     dataSource.updateItemOnList = copyWith;
+    dataSource.deleteItemFromList = deleteItem;
     loadPage();
   }
 

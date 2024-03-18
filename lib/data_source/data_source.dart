@@ -17,6 +17,8 @@ abstract class DataSource<PageKeyType, ItemType> {
 
   Function(ItemType, int index) ? updateItemOnList;
 
+  Function(int index) ? deleteItemFromList;
+
   List<ItemType> items = [];
 
 
