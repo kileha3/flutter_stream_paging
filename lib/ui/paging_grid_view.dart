@@ -212,6 +212,7 @@ class _PagingGridViewState<PageKeyType, ItemType>
   @override
   Widget build(BuildContext context) {
     return _pagingState.when((items, status, hasRequestNextPage) {
+      dataSource.items = items;
       return widget.addItemBuilder != null
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +239,6 @@ class _PagingGridViewState<PageKeyType, ItemType>
       required int index,
       required List<ItemType> itemList,
       required int itemCount}) {
-    dataSource.items = itemList;
     var hasRequestedNextPage = _pagingState
         .maybeMap((value) => value.hasRequestNextPage, orElse: () => false);
     if (!hasRequestedNextPage) {
