@@ -180,6 +180,8 @@ class _PagingGridViewState<PageKeyType, ItemType>
     }, orElse: () => null);
   }
 
+
+
   void clearItems() {
     _pagingState.maybeMap((value) {
       var items = [...value.items];
@@ -202,6 +204,7 @@ class _PagingGridViewState<PageKeyType, ItemType>
     super.initState();
     dataSource = widget.pageDataSource;
     dataSource.reLoadFirstPage = clearItems;
+    dataSource.addItemOnList = addItem;
     loadPage();
   }
 

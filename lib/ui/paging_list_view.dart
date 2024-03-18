@@ -284,6 +284,7 @@ class PagingListViewState<PageKeyType, ItemType>
     super.initState();
     dataSource = widget.pageDataSource;
     dataSource.reLoadFirstPage = clearItems;
+    dataSource.addItemOnList = addItem;
     loadPage();
   }
 
